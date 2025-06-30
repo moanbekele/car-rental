@@ -1,73 +1,36 @@
 import React from 'react';
-import { Heart, Star, Users } from 'lucide-react';
-
-interface PopularCar {
-  id: string;
-  name: string;
-  year: number;
-  imageUrl: string;
-  rating: number;
-  trips: number;
-  availability: string;
-  seats: number;
-  price: string;
-  isLiked: boolean;
-}
+import { Heart, Star, MapPin } from 'lucide-react';
+import { mostPopularCars } from '../data/data';
+import type { Car } from '../types';
 
 const MostPopularCars = () => {
-  const popularCars: PopularCar[] = [
-    {
-      id: '1',
-      name: 'Chevrolet Captiva',
-      year: 2023,
-      imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/9acf30aa4aabcc7ab4eb6c56b70f04f55fc8916c?placeholderIfAbsent=true',
-      rating: 5.0,
-      trips: 5,
-      availability: 'Available from 2 August',
-      seats: 4,
-      price: 'ETB 8,000/Day',
-      isLiked: false,
-    },
-    {
-      id: '2', 
-      name: 'Tesla Model Y',
-      year: 2023,
-      imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/26016370bc24ccf98f21fe8d04f85a4fb6b3b6ff?placeholderIfAbsent=true',
-      rating: 4.9,
-      trips: 12,
-      availability: 'Available from 8 September',
-      seats: 4,
-      price: 'ETB 9,000/Day',
-      isLiked: true,
-    },
-    {
-      id: '3',
-      name: 'Suzuki Dzire',
-      year: 2022,
-      imageUrl: 'https://cdn.builder.io/api/v1/image/assets/TEMP/8559cde1d85afa8752521dd1ea31d0054ba77f05?placeholderIfAbsent=true',
-      rating: 4.8,
-      trips: 8,
-      availability: 'Available Now',
-      seats: 4,
-      price: 'ETB 2,000/Day',
-      isLiked: false,
-    }
-  ];
+  const handleLike = (carId: string) => {
+    console.log('Liked car:', carId);
+  };
+
+  const handleDetails = (carId: string) => {
+    console.log('View details for car:', carId);
+  };
+
+  const formatPrice = (price: number, currency: string) => {
+    return `${currency} ${price.toLocaleString()}`;
+  };
 
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
     
     return (
-      <div className="flex items-center gap-0.5">
+      <div className="flex items-center gap-1">
         {[...Array(5)].map((_, index) => (
           <Star
             key={index}
-            className={`w-3 h-3 ${
+            size={14}
+            className={`${
               index < fullStars
-                ? 'text-yellow-400 fill-yellow-400'
+                ? 'text-amber-500 fill-amber-500'
                 : index === fullStars && hasHalfStar
-                ? 'text-yellow-400 fill-yellow-400'
+                ? 'text-amber-500 fill-amber-500'
                 : 'text-gray-300'
             }`}
           />
@@ -76,81 +39,90 @@ const MostPopularCars = () => {
     );
   };
 
-  const handleLike = (carId: string) => {
-    // Handle like functionality
-    console.log('Liked car:', carId);
-  };
-
-  const handleDetails = (carId: string) => {
-    // Handle details navigation
-    console.log('View details for car:', carId);
-  };
-
   return (
     <section className="w-full">
-      <h2 className="text-[15px] font-semibold text-gray-900 tracking-[-0.15px] mb-4">
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
         Most Popular Cars
       </h2>
       
-      <div className="space-y-4">
-        {popularCars.map((car) => (
-          <div key={car.id} className="relative w-full h-56 bg-gray-100 rounded-2xl overflow-hidden shadow-sm">
+      <div className="space-y-6">
+        {mostPopularCars.map((car: Car) => (
+          <div key={car.id} className="relative w-full h-80 md:h-96 lg:h-[420px] bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100">
             {/* Car Image */}
             <div className="w-full h-full relative">
               <img
                 src={car.imageUrl}
                 alt={`${car.name} ${car.year}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                loading="lazy"
               />
               
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Professional gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             </div>
             
             {/* Heart Icon */}
             <button 
-              className="absolute top-4 right-4 p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
+              className={`absolute top-6 right-6 p-3 rounded-full backdrop-blur-md border border-white/20 transition-all duration-300 hover:scale-105 ${
+                car.isLiked ? 'bg-red-500' : 'bg-white/20 hover:bg-white/30'
+              }`}
               onClick={() => handleLike(car.id)}
             >
               <Heart 
-                className={`w-4 h-4 ${
+                className={`w-5 h-5 ${
                   car.isLiked 
-                    ? 'text-red-500 fill-red-500' 
+                    ? 'text-white fill-white' 
                     : 'text-white'
                 }`} 
               />
             </button>
             
             {/* Car Details Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-4">
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
               <div className="text-white">
-                {/* Car Name */}
-                <h3 className="font-semibold text-base mb-2">
-                  {car.name} {car.year}
-                </h3>
-                
-                {/* Rating and Trips Row */}
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="flex items-center gap-1">
-                    <span className="text-sm font-medium">{car.rating}</span>
-                    {renderStars(car.rating)}
-                  </div>
-                  <span className="text-sm opacity-90">{car.trips} Trips</span>
+                {/* Car Name & Brand */}
+                <div className="mb-4">
+                  <h3 className="font-bold text-xl md:text-2xl lg:text-3xl mb-2">
+                    {car.name}
+                  </h3>
+                  <p className="text-sm md:text-base opacity-90 font-medium">
+                    {car.year} • {car.brand.charAt(0).toUpperCase() + car.brand.slice(1)}
+                  </p>
                 </div>
                 
-                {/* Bottom Row - Availability, Price, Details Button */}
+                {/* Rating and Stats */}
+                <div className="flex items-center gap-6 mb-4">
+                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">
+                    <span className="text-sm font-semibold">{car.rating}</span>
+                    {renderStars(car.rating)}
+                    <span className="text-xs opacity-75">({car.reviewCount})</span>
+                  </div>
+                  {car.trips && (
+                    <div className="flex items-center gap-1 text-sm opacity-90">
+                      <MapPin size={14} />
+                      <span>{car.trips} Trips</span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Bottom Row */}
                 <div className="flex items-end justify-between">
                   <div className="flex-1">
-                    <p className="text-sm opacity-90 mb-1">{car.availability}</p>
-                    <p className="text-lg font-bold">{car.price}</p>
+                    <p className="text-sm md:text-base opacity-90 mb-2">
+                      {car.availability}
+                    </p>
+                    <div className="text-2xl md:text-3xl font-bold">
+                      {formatPrice(car.pricePerDay, car.currency)}
+                      <span className="text-base font-normal opacity-75">/day</span>
+                    </div>
                   </div>
                   
                   {/* Details Button */}
                   <button 
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
+                    className="bg-white/20 backdrop-blur-md hover:bg-white/30 px-6 py-3 rounded-2xl transition-all duration-300 hover:scale-105 border border-white/20"
                     onClick={() => handleDetails(car.id)}
                   >
-                    <span className="text-sm font-medium text-white">Details</span>
+                    <span className="text-sm font-semibold text-white">View Details</span>
                   </button>
                 </div>
               </div>

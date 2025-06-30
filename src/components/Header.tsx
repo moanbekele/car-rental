@@ -1,49 +1,51 @@
 import React, { useState } from 'react';
+import { MapPin, ChevronDown, Bell } from 'lucide-react';
 
 const Header = () => {
   const [isLocationOpen, setIsLocationOpen] = useState(false);
 
   return (
     <header className="w-full">
-      {/* Logo Section */}
-      <div className="flex items-center mb-4 md:mb-6">
-        <img
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/2f0d121be16836c0dd64026ea12a20341a57b335?placeholderIfAbsent=true"
-          className="w-15 h-6 md:h-8 lg:h-10 rounded-full"
-          alt="Company Logo"
-        />
+      {/* Clean logo section */}
+      <div className="flex items-center mb-6 md:mb-8">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white font-bold text-lg md:text-xl">RC</span>
+          </div>
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-900">RentCar</h1>
+            <p className="text-sm text-gray-500 hidden md:block">Premium Car Rental</p>
+          </div>
+        </div>
       </div>
       
       {/* Location & Notifications */}
       <div className="flex items-center justify-between">
         <button 
-          className="flex items-center gap-2 px-3 py-2 md:px-4 md:py-3 bg-white rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-3 px-4 py-3 md:px-5 md:py-4 bg-white rounded-2xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:bg-gray-50 hover:border-gray-200 transition-all duration-200 shadow-sm"
           onClick={() => setIsLocationOpen(!isLocationOpen)}
           aria-expanded={isLocationOpen}
           aria-haspopup="true"
         >
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/77c09ccdaa87b7ea338a486c63019c15a92859d9?placeholderIfAbsent=true"
-            className="w-5 h-5 md:w-6 md:h-6"
-            alt="Location icon"
-          />
-          <span className="text-[15px] md:text-base lg:text-lg font-medium text-gray-900 tracking-[-0.15px]">
-            Location
-          </span>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/fb351dd92a69de04c358d8da39dcd6f23a5d9cfb?placeholderIfAbsent=true"
-            className="w-4 h-4 md:w-5 md:h-5"
-            alt="Dropdown arrow"
-          />
+          <MapPin className="w-5 h-5 md:w-6 md:h-6 text-emerald-600" />
+          <div className="text-left">
+            <span className="text-sm md:text-base font-semibold text-gray-900 block">
+              Location
+            </span>
+            <span className="text-xs text-gray-500">Addis Ababa, Ethiopia</span>
+          </div>
+          <ChevronDown className="w-4 h-4 md:w-5 md:h-5 text-gray-400" />
         </button>
         
-        <button className="p-2 md:p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg hover:bg-gray-50 transition-colors">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/e570c1a781e03e3fe9ed31fcac2c39353d2fcd80?placeholderIfAbsent=true"
-            className="w-8 h-9 md:w-10 md:h-11"
-            alt="Notifications"
-          />
-        </button>
+        <div className="relative">
+          <button className="p-3 md:p-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-2xl hover:bg-gray-50 transition-all duration-200 group">
+            <Bell className="w-6 h-6 md:w-7 md:h-7 text-gray-600 group-hover:text-emerald-600 transition-colors" />
+          </button>
+          {/* Notification badge */}
+          <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+            <span className="text-xs text-white font-semibold">3</span>
+          </div>
+        </div>
       </div>
     </header>
   );
