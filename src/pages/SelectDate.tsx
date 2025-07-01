@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, Car, MapPin } from 'lucide-react';
 import { getCarById } from '../data/data';
+import { useBooking } from '../contexts/BookingContext';
 
 const SelectDate = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { updateBooking } = useBooking();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -142,31 +144,27 @@ const SelectDate = () => {
     setCurrentMonth(prevMonth);
   };
 
-  const handleConfirm = (): void => {
+  const handleSave = (): void => {
     if (!startDate || !endDate) {
       alert('Please select both start and end dates');
       return;
     }
 
-    const bookingData = {
+    // Save booking data to context
+    updateBooking({
       carId: car.id,
       carName: car.name,
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString(),
-      totalDays: calculateTotalDays(),
-      totalPrice: calculateTotalPrice(),
+      carImage: car.imageUrl,
       pricePerDay: car.pricePerDay,
-      currency: car.currency
-    };
+      currency: car.currency,
+      startDate,
+      endDate,
+      totalDays: calculateTotalDays(),
+      totalPrice: calculateTotalPrice()
+    });
 
-    // In a real app, you would send this to your booking API
-    console.log('Booking Data:', bookingData);
-    
-    // For demo purposes, show an alert
-    alert(`Booking confirmed!\nCar: ${car.name}\nDates: ${formatDate(startDate)} to ${formatDate(endDate)}\nTotal: ${car.currency} ${calculateTotalPrice().toLocaleString()}`);
-    
-    // Navigate back to home or to a confirmation page
-    navigate('/');
+    // Navigate to pickup selection
+    navigate(`/car/${car.id}/select-pickup`);
   };
 
   // Calendar generation
@@ -391,7 +389,7 @@ const SelectDate = () => {
           </button>
           
           <button
-            onClick={handleConfirm}
+            onClick={handleSave}
             disabled={!startDate || !endDate}
             className={`flex-1 py-4 px-6 rounded-2xl font-semibold transition-all duration-200 ${
               startDate && endDate
@@ -399,7 +397,7 @@ const SelectDate = () => {
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            Confirm Booking
+            Save
           </button>
         </div>
 
