@@ -1,15 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, Star, MapPin } from 'lucide-react';
 import { mostPopularCars } from '../data/data';
 import type { Car } from '../types';
 
 const MostPopularCars = () => {
+  const navigate = useNavigate();
+
   const handleLike = (carId: string) => {
     console.log('Liked car:', carId);
+    // Here you would typically update the car's liked status in your state management
   };
 
   const handleDetails = (carId: string) => {
+    navigate(`/car/${carId}`);
     console.log('View details for car:', carId);
+  };
+
+  const handleCardClick = (carId: string) => {
+    navigate(`/car/${carId}`);
   };
 
   const formatPrice = (price: number, currency: string) => {
@@ -47,7 +56,11 @@ const MostPopularCars = () => {
       
       <div className="space-y-6">
         {mostPopularCars.map((car: Car) => (
-          <div key={car.id} className="relative w-full h-80 md:h-96 lg:h-[420px] bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100">
+          <div 
+            key={car.id} 
+            className="relative w-full h-80 md:h-96 lg:h-[420px] bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 cursor-pointer"
+            onClick={() => handleCardClick(car.id)}
+          >
             {/* Car Image */}
             <div className="w-full h-full relative">
               <img
@@ -66,7 +79,10 @@ const MostPopularCars = () => {
               className={`absolute top-6 right-6 p-3 rounded-full backdrop-blur-md border border-white/20 transition-all duration-300 hover:scale-105 ${
                 car.isLiked ? 'bg-red-500' : 'bg-white/20 hover:bg-white/30'
               }`}
-              onClick={() => handleLike(car.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleLike(car.id);
+              }}
             >
               <Heart 
                 className={`w-5 h-5 ${
@@ -120,7 +136,10 @@ const MostPopularCars = () => {
                   {/* Details Button */}
                   <button 
                     className="bg-white/20 backdrop-blur-md hover:bg-white/30 px-6 py-3 rounded-2xl transition-all duration-300 hover:scale-105 border border-white/20"
-                    onClick={() => handleDetails(car.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDetails(car.id);
+                    }}
                   >
                     <span className="text-sm font-semibold text-white">View Details</span>
                   </button>

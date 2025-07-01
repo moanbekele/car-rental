@@ -1,14 +1,26 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CarCard from './CarCard';
 import { topRatedCars } from '../data/data';
 
 const TopRatedCars = () => {
+  const navigate = useNavigate();
+
   const handleLike = (carId: string) => {
     console.log('Liked car:', carId);
+    // Here you would typically update the car's liked status in your state management
+    // For example: dispatch(toggleCarLike(carId)) or updateCarLike(carId)
   };
 
   const handleDetails = (carId: string) => {
+    navigate(`/car/${carId}`);
     console.log('View details for car:', carId);
+  };
+
+  const handleViewAll = () => {
+    // Navigate to a page showing all top rated cars
+    navigate('/cars?category=top-rated');
+    console.log('View all top rated cars');
   };
 
   return (
@@ -17,7 +29,10 @@ const TopRatedCars = () => {
         <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
           Top Rated Cars
         </h2>
-        <button className="text-sm md:text-base font-semibold text-emerald-600 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg px-4 py-2 hover:bg-emerald-50 transition-all duration-200">
+        <button 
+          onClick={handleViewAll}
+          className="text-sm md:text-base font-semibold text-emerald-600 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-lg px-4 py-2 hover:bg-emerald-50 transition-all duration-200"
+        >
           View All
         </button>
       </div>
@@ -34,6 +49,13 @@ const TopRatedCars = () => {
           </div>
         ))}
       </div>
+      
+      {/* Hide scrollbar for webkit browsers */}
+      <style jsx>{`
+        .overflow-x-auto::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 };

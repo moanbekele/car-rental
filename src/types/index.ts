@@ -8,6 +8,54 @@ export interface Brand {
   updatedAt?: string;
 }
 
+export interface CarHost {
+  id: string;
+  name: string;
+  avatar: string;
+  rating: number;
+  totalTrips: number;
+  joinDate: string;
+  isAllStar: boolean;
+  responseTime: string;
+}
+
+export interface CarReview {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  rating: number;
+  date: string;
+  comment: string;
+}
+
+export interface CarRatingBreakdown {
+  cleanliness: number;
+  maintenance: number;
+  communication: number;
+  convenience: number;
+  listingAccuracy: number;
+}
+
+export interface CarInsurance {
+  provider: string;
+  coverage: string;
+  details: string;
+}
+
+export interface CarGuidelines {
+  rules: string[];
+  restrictions: string[];
+}
+
+export interface CarBasics {
+  batteryCapacity?: string;
+  capacity: number;
+  doors: number;
+  transmission: string;
+  fuelCapacity?: string;
+}
+
 export interface Car {
   id: string;
   name: string;
@@ -15,6 +63,7 @@ export interface Car {
   year: number;
   model: string;
   imageUrl: string;
+  images?: string[];
   rating: number;
   reviewCount: number;
   availability: string;
@@ -33,6 +82,18 @@ export interface Car {
   isLiked?: boolean;
   createdAt?: string;
   updatedAt?: string;
+  
+  // Extended properties for details page
+  host?: CarHost;
+  description?: string;
+  fullDescription?: string;
+  basics?: CarBasics;
+  insurance?: CarInsurance;
+  guidelines?: CarGuidelines;
+  ratingBreakdown?: CarRatingBreakdown;
+  reviews?: CarReview[];
+  cancellationPolicy?: string;
+  pickupLocation?: string;
 }
 
 export interface AppData {

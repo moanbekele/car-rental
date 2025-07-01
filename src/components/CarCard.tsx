@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Heart, Star, Users, Zap } from 'lucide-react';
 import type { Car } from '../types';
 
@@ -9,20 +10,31 @@ interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, onLike, onDetails }) => {
+  const navigate = useNavigate();
+
   const formatPrice = (price: number, currency: string) => {
     return `${currency} ${price.toLocaleString()}`;
   };
 
-  const handleLike = () => {
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onLike?.(car.id);
   };
 
   const handleDetails = () => {
+    navigate(`/car/${car.id}`);
     onDetails?.(car.id);
   };
 
+  const handleCardClick = () => {
+    navigate(`/car/${car.id}`);
+  };
+
   return (
-    <article className="w-[280px] sm:w-[300px] md:w-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100">
+    <article 
+      className="w-[280px] sm:w-[300px] md:w-full bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Car Image Section */}
       <div className="relative aspect-[1.4] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
         <img
