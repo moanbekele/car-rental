@@ -1,6 +1,7 @@
 # 🚗 Car Rental App
 ![Car Rental App Screenshot](images/Home_Page.png)
-![Car Rental App Screenshot](images/desktop.png)
+<br>
+<!-- ![Car Rental App Screenshot](images/desktop.png) -->
 A modern, responsive car rental application built with React, TypeScript, and Vite. This app provides a seamless experience for users to browse, book, and rent vehicles with an integrated driver verification system.
 
 
