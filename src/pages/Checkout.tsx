@@ -7,8 +7,7 @@ import { getCarById } from '../data/data';
 const Checkout = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { booking, clearBooking } = useBooking();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { booking } = useBooking();
 
   const car = getCarById(id || '');
 
@@ -39,20 +38,8 @@ const Checkout = () => {
     navigate(`/car/${id}/select-pickup`);
   };
 
-  const handleProceedToPay = async () => {
-    setIsProcessing(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      clearBooking();
-      navigate('/', { replace: true });
-      
-      // Show success message
-      setTimeout(() => {
-        alert('Payment successful! Your booking has been confirmed.');
-      }, 500);
-    }, 2000);
+  const handleProceedToPay = () => {
+    navigate(`/car/${id}/payment`);
   };
 
   const formatDate = (date: Date): string => {
@@ -80,7 +67,6 @@ const Checkout = () => {
   };
 
   const getDiscountAmount = (): number => {
-    // You can implement discount logic here
     return 0;
   };
 
@@ -241,14 +227,9 @@ const Checkout = () => {
             </div>
             <button
               onClick={handleProceedToPay}
-              disabled={isProcessing}
-              className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-200 ${
-                isProcessing
-                  ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                  : 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg hover:shadow-xl'
-              }`}
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl"
             >
-              {isProcessing ? 'Processing...' : 'Proceed to Pay'}
+              Proceed to Pay
             </button>
           </div>
         </div>
