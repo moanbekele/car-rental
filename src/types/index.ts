@@ -56,6 +56,13 @@ export interface CarBasics {
   fuelCapacity?: string;
 }
 
+export interface CarAvailability {
+  blockedDates: string[];
+  minimumRental: number;
+  maximumRental: number;
+  advanceBookingDays: number;
+}
+
 export interface Car {
   id: string;
   name: string;
@@ -66,7 +73,8 @@ export interface Car {
   images?: string[];
   rating: number;
   reviewCount: number;
-  availability: string;
+  availability: string;  // Display string
+  availabilityData?: CarAvailability;  // Renamed property
   availableFrom?: string;
   seats: number;
   pricePerDay: number;

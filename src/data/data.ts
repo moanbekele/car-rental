@@ -1,4 +1,4 @@
-import type { AppData, Brand, Car, CarHost, CarReview, CarRatingBreakdown } from '../types';
+import type { AppData, Brand, Car, CarHost, CarReview, CarRatingBreakdown, CarAvailability } from '../types';
 
 // Import brand images
 import menuAllImg from '../assets/images/brands/menu_all.png';
@@ -57,6 +57,14 @@ const sampleRatingBreakdown: CarRatingBreakdown = {
   communication: 4.9,
   convenience: 5.0,
   listingAccuracy: 5.0
+};
+
+// Sample availability data
+const sampleAvailability: CarAvailability = {
+  blockedDates: ['2025-05-15', '2025-05-16', '2025-06-01', '2025-06-02'],
+  minimumRental: 1,
+  maximumRental: 30,
+  advanceBookingDays: 1
 };
 
 // Brands Data
@@ -178,7 +186,8 @@ const topRatedCars: Car[] = [
     ratingBreakdown: sampleRatingBreakdown,
     reviews: sampleReviews,
     cancellationPolicy: 'Free Cancellation: If you cancel your booking before 5 days of your trip',
-    pickupLocation: 'Addis Ababa, Bole Medhanyalem'
+    pickupLocation: 'Addis Ababa, Bole Medhanyalem',
+    availabilityData: sampleAvailability
   },
   {
     id: 'car-002',
@@ -230,7 +239,8 @@ const topRatedCars: Car[] = [
     ratingBreakdown: sampleRatingBreakdown,
     reviews: sampleReviews,
     cancellationPolicy: 'Free Cancellation: If you cancel your booking before 5 days of your trip',
-    pickupLocation: 'Addis Ababa, Bole Medhanyalem'
+    pickupLocation: 'Addis Ababa, Bole Medhanyalem',
+    availabilityData: sampleAvailability
   },
   {
     id: 'car-003',
@@ -281,7 +291,8 @@ const topRatedCars: Car[] = [
     ratingBreakdown: sampleRatingBreakdown,
     reviews: sampleReviews,
     cancellationPolicy: 'Free Cancellation: If you cancel your booking before 5 days of your trip',
-    pickupLocation: 'Addis Ababa, Bole Medhanyalem'
+    pickupLocation: 'Addis Ababa, Bole Medhanyalem',
+    availabilityData: sampleAvailability
   },
   {
     id: 'car-004',
@@ -332,7 +343,8 @@ const topRatedCars: Car[] = [
     ratingBreakdown: sampleRatingBreakdown,
     reviews: sampleReviews,
     cancellationPolicy: 'Free Cancellation: If you cancel your booking before 5 days of your trip',
-    pickupLocation: 'Addis Ababa, Bole Medhanyalem'
+    pickupLocation: 'Addis Ababa, Bole Medhanyalem',
+    availabilityData: sampleAvailability
   }
 ];
 
@@ -387,7 +399,8 @@ const mostPopularCars: Car[] = [
     ratingBreakdown: sampleRatingBreakdown,
     reviews: sampleReviews,
     cancellationPolicy: 'Free Cancellation: If you cancel your booking before 5 days of your trip',
-    pickupLocation: 'Addis Ababa, Bole Medhanyalem'
+    pickupLocation: 'Addis Ababa, Bole Medhanyalem',
+    availabilityData: sampleAvailability
   },
   // Add other most popular cars with similar extended data...
   ...topRatedCars.slice(1, 3).map(car => ({ ...car, id: car.id + '-popular' }))

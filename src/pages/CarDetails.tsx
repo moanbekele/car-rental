@@ -50,6 +50,14 @@ const CarDetails = () => {
     setIsLiked(!isLiked);
   };
 
+  const handleBookNow = () => {
+    navigate(`/car/${car.id}/select-date`);
+  };
+
+  const handleAddDates = () => {
+    navigate(`/car/${car.id}/select-date`);
+  };
+
   const formatPrice = (price: number, currency: string) => {
     return `${currency} ${price.toLocaleString()}`;
   };
@@ -200,7 +208,10 @@ const CarDetails = () => {
                   <Calendar size={20} className="text-emerald-600 md:w-6 md:h-6" />
                   <span className="text-gray-600 text-sm md:text-base">Any time</span>
                 </div>
-                <button className="text-emerald-600 font-semibold flex items-center gap-1 text-sm md:text-base hover:text-emerald-700 transition-colors">
+                <button 
+                  onClick={handleAddDates}
+                  className="text-emerald-600 font-semibold flex items-center gap-1 text-sm md:text-base hover:text-emerald-700 transition-colors"
+                >
                   Add Dates
                   <ChevronRight size={16} />
                 </button>
@@ -408,7 +419,10 @@ const CarDetails = () => {
               {car.currency} {(car.pricePerDay * 0.85).toLocaleString()}/Day
             </div>
           </div>
-          <button className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-semibold transition-colors duration-200 text-sm md:text-base">
+          <button 
+            onClick={handleBookNow}
+            className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-semibold transition-colors duration-200 text-sm md:text-base"
+          >
             Book Now
           </button>
         </div>
@@ -423,7 +437,10 @@ const CarDetails = () => {
           <div className="text-lg text-gray-500">per day</div>
         </div>
         
-        <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-4 xl:py-5 rounded-2xl font-semibold transition-colors duration-200 text-lg xl:text-xl mb-4">
+        <button 
+          onClick={handleBookNow}
+          className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-4 xl:py-5 rounded-2xl font-semibold transition-colors duration-200 text-lg xl:text-xl mb-4"
+        >
           Book Now
         </button>
         
