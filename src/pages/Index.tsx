@@ -8,22 +8,21 @@ import BottomNavigation from '../components/BottomNavigation';
 
 const Index = () => {
   return (
-    <div className="bg-white min-h-screen w-full">
-      {/* Responsive container with tablet considerations */}
-      <div className="max-w-md mx-auto md:max-w-full lg:max-w-6xl xl:max-w-7xl">
+    <div className="bg-gradient-to-br from-gray-50 to-white min-h-screen w-full">
+      {/* Professional container with responsive design */}
+      <div className="max-w-md mx-auto md:max-w-full md:px-8 lg:max-w-6xl xl:max-w-7xl">
         
-        {/* Desktop Sidebar Space - only on xl screens */}
+        {/* Desktop Sidebar Space */}
         <div className="xl:ml-24">
-          {/* Tablet and desktop padding adjustments */}
-          <div className="px-4 py-4 md:px-6 lg:px-8 xl:px-8">
+          <div className="px-4 py-6 md:px-6 lg:px-8 xl:px-8">
             <Header />
             
-            <main className="mt-6 space-y-8 md:space-y-10 lg:space-y-12">
+            <main className="mt-8 space-y-10 md:space-y-12 lg:space-y-16">
               <SearchBar />
               <BrandCarousel />
               
-              {/* Responsive grid for car sections */}
-              <div className="space-y-8 md:space-y-10 lg:space-y-12 xl:grid xl:grid-cols-2 xl:gap-12 xl:space-y-0">
+              {/* Clean grid layout for car sections */}
+              <div className="space-y-12 md:space-y-16 xl:grid xl:grid-cols-2 xl:gap-16 xl:space-y-0">
                 <TopRatedCars />
                 <MostPopularCars />
               </div>
@@ -34,7 +33,7 @@ const Index = () => {
         <BottomNavigation />
         
         {/* Responsive bottom padding */}
-        <div className="h-20 md:h-16 xl:h-8" />
+        <div className="h-24 md:h-20 xl:h-12" />
       </div>
     </div>
   );
