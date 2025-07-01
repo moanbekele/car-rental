@@ -20,14 +20,8 @@ const ApproveDriver = () => {
   };
 
   const handleContinue = () => {
-    // Clear booking data and navigate to home
-    clearBooking();
-    navigate('/', { replace: true });
-    
-    // Show success message
-    setTimeout(() => {
-      alert('Your booking has been submitted! We will review your information and get back to you soon.');
-    }, 500);
+    // Navigate to driver form instead of clearing booking
+    navigate('/driver-form');
   };
 
   const approvalItems: ApprovalItem[] = [

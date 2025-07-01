@@ -12,6 +12,7 @@ import SelectPickup from "./pages/SelectPickup";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import ApproveDriver from "./pages/ApproveDriver";
+import DriverForm from "./pages/DriverForm";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/car/:id/checkout" element={<Checkout />} />
             <Route path="/car/:id/payment" element={<Payment />} />
             <Route path="/car/:id/approve-driver" element={<ApproveDriver />} />
+            <Route path="/driver-form" element={<DriverForm />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
